@@ -1,15 +1,41 @@
 import { StatusBar } from 'expo-status-bar';
+import 'react-native-gesture-handler';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import LoginScreen from './screens/LoginScreen';
+import SignupScreen from './screens/SignupScreen';
+import Dashboard from './screens/Dashboard';
+import { createStackNavigator } from '@react-navigation/stack';
 
-export default function App() {
+const Stack = createStackNavigator();
+const globalScreenOptions = {
+  headerStyle: { backgroundColor: '#f4cc22' },
+  headerTitleStyle: { color: 'white' },
+  headerTintColor: 'white',
+};
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator screenOptions={globalScreenOptions}>
+        <Stack.Screen
+          options={{ title: 'Beehaibu Login' }}
+          name="LoginScreen"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          options={{ title: 'Beehaibu Signup' }}
+          name="SignupScreen"
+          component={SignupScreen}
+        />
+        <Stack.Screen name="Dashboard" component={Dashboard} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
-}
+};
+
+export default App;
 
 const styles = StyleSheet.create({
   container: {

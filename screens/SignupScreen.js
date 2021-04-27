@@ -1,6 +1,12 @@
 import React from 'react';
-import { Button, Input, Image } from 'react-native-elements';
-import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
+import { Button, Input, Image, Icon } from 'react-native-elements';
+import {
+  StyleSheet,
+  View,
+  Text,
+  TouchableOpacity,
+  TextInput,
+} from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
@@ -13,7 +19,9 @@ const SignupScreen = ({ navigation }) => {
 
   const signUp = async () => {
     try {
-      firebase.auth().createUserWithEmailAndPassword(email, password);
+      const response = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password);
       navigation.navigate('LoginScreen');
     } catch (err) {
       setError(err.message);
@@ -28,19 +36,21 @@ const SignupScreen = ({ navigation }) => {
         style={{ width: 200, height: 200 }}
       />
       <View style={styles.inputContainer}>
-        <Input
+        <TextInput
           placeholder="Email"
           autoFocus
           type="email"
           value={email}
           onChangeText={(text) => setEmail(text)}
+          style={styles.textInput}
         />
-        <Input
+        <TextInput
           placeholder="Password"
           secureTextEntry
           type="password"
           value={password}
           onChangeText={(text) => setPassword(text)}
+          style={styles.textInput}
         />
       </View>
       {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
@@ -69,12 +79,25 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   inputContainer: {
-    width: 300,
-    marginTop: 20,
+    width: '80%',
+    paddingHorizontal: 10,
+    marginTop: 25,
   },
   button: {
     width: 210,
     marginTop: 15,
     justifyContent: 'center',
+  },
+  textInput: {
+    //width: '80%',
+    height: 44,
+    backgroundColor: '#f1f3f6',
+    borderRadius: 8,
+    paddingHorizontal: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginHorizontal: 10,
+    marginVertical: 10,
   },
 });

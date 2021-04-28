@@ -6,7 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
 import Dashboard from './screens/Dashboard';
-import AddInspection from './screens/AddInspection';
+import InspectionList from './screens/InspectionList';
 import { createStackNavigator } from '@react-navigation/stack';
 
 const Stack = createStackNavigator();
@@ -21,12 +21,16 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen
+          options={{ title: '' }}
+          name="InspectionList"
+          component={InspectionList}
+        />
+        <Stack.Screen
           options={{ title: 'Beehaibu Login' }}
           name="LoginScreen"
           component={LoginScreen}
         />
         <Stack.Screen name="Dashboard" component={Dashboard} />
-        <Stack.Screen name="AddInspection" component={AddInspection} />
 
         <Stack.Screen
           options={{ title: 'Beehaibu Signup' }}

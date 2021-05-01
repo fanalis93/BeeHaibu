@@ -4,6 +4,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import AddInspection from './AddInspection';
+import InspectionList from './InspectionList';
 import { KeyboardAvoidingView } from 'react-native';
 
 const Dashboard = ({ navigation }) => {
@@ -15,7 +16,7 @@ const Dashboard = ({ navigation }) => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          navigation.navigate('AddInspection');
+          navigation.navigate('InspectionList');
         }}
       >
         <Text style={{ alignItems: 'center' }}>AddInspection</Text>

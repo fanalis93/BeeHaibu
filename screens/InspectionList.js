@@ -17,11 +17,14 @@ import AddListModal from '../components/AddListModal';
 // const image = {source: '../assets/back1'};
 export default class InspectionList extends React.Component {
   state = {
-    addTodoVisible: true,
+    addTodoVisible: false,
   };
   toggleAddTodoModal() {
     this.setState({ addTodoVisible: !this.state.addTodoVisible });
   }
+  renderList = (list) => {
+    return <TodoList list={list} />;
+  };
 
   render() {
     return (
@@ -35,7 +38,7 @@ export default class InspectionList extends React.Component {
             visible={this.state.addTodoVisible}
             onRequestClose={() => this.toggleAddTodoModal()}
           >
-            <AddListModal closeModel={() => this.toggleAddTodoModal()} />
+            <AddListModal closeModal={() => this.toggleAddTodoModal()} />
           </Modal>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.divider} />
@@ -63,7 +66,7 @@ export default class InspectionList extends React.Component {
               keyExtractor={(item) => item.name}
               horzontal={true}
               showsHorizontalScrollIndicator={false}
-              renderItem={({ item }) => <TodoList list={item} />}
+              renderItem={({ item }) => this.renderList(item)}
             />
           </View>
         </ImageBackground>

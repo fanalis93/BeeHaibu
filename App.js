@@ -21,7 +21,7 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator screenOptions={globalScreenOptions}>
         <Stack.Screen
-          options={{ title: '' }}
+          options={{ headerShown: false }}
           name="InspectionList"
           component={InspectionList}
         />

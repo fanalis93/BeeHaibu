@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { AntDesign } from '@expo/vector-icons';
 import Colors from './Colors';
+import tempData from '../tempData';
 
 export default class AddListModal extends Component {
   backgroundColors = [
@@ -22,8 +23,23 @@ export default class AddListModal extends Component {
   ];
   state = {
     name: '',
+    date: '',
     color: this.backgroundColors[0],
   };
+
+  createTodo = () => {
+    const { name, date, color } = this.state;
+    tempData.push({
+      name,
+      date,
+      color,
+      todos: [],
+    });
+    this.setState({ name: '' });
+    this.setState({ date: '' });
+    this.props.closeModal();
+  };
+
   renderColors() {
     return this.backgroundColors.map((color) => {
       return (
@@ -41,7 +57,7 @@ export default class AddListModal extends Component {
       <KeyboardAvoidingView style={styles.container} behavior="padding">
         <TouchableOpacity
           style={{ position: 'absolute', top: 25, right: 25 }}
-          onPress={this.props.closeModel}
+          onPress={this.props.closeModal}
         >
           <AntDesign name="close" size={24} color={Colors.red} />
         </TouchableOpacity>
@@ -50,15 +66,25 @@ export default class AddListModal extends Component {
           <TextInput
             style={styles.input}
             placeholder="Add Name of Inspection"
+            onChangeText={(text) => this.setState({ name: text })}
           />
           <TextInput
             style={styles.input}
-            placeholder="Add Name of Inspector"
-            onChangeText={(text) => this.setState({ name: text })}
+            placeholder="Date of Inspection"
+            onChangeText={(text) => this.setState({ date: text })}
           />
-          <View>{this.renderColors()}</View>
+          <View
+            style={{
+              flexDirection: 'row',
+              justifyContent: 'space-between',
+              marginTop: 12,
+            }}
+          >
+            {this.renderColors()}
+          </View>
           <TouchableOpacity
             style={[styles.create, { backgroundColor: this.state.color }]}
+            onPress={this.createTodo}
           >
             <Text style={{ color: Colors.white, fontWeight: '600' }}>
               Create!

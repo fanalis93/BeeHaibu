@@ -1,23 +1,48 @@
 import React from 'react';
 import { BackHandler } from 'react-native';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
 import Colors from './Colors';
+import TodoModal from './TodoModal';
 
-export default TodoList = ({ list }) => {
-  return (
-    <View style={[styles.listContainer, { backgroundColor: list.color }]}>
-      <Text style={styles.listTitle} numberofLines={1}>
-        {list.name}
-      </Text>
+export default class TodoList extends React.Component {
+  state = {
+    showListVisible: false,
+  };
+  toggleListModal() {
+    this.setState({ showListVisible: !this.state.showListVisible });
+  }
+  render() {
+    const list = this.props.list;
+    return (
       <View>
-        <View style={{ alignItems: 'center' }}>
-          <Text style={styles.date}>12/02/2021</Text>
-          <Text style={styles.honeyCollected}>Honey Collected: 2.1 KG</Text>
-        </View>
+        <Modal
+          animationType="slide"
+          visible={this.state.showListVisible}
+          onRequestClose={() => this.toggleListModal()}
+        >
+          <TodoModal list={list} closeModal={() => this.toggleListModal()} />
+        </Modal>
+        <TouchableOpacity
+          style={[styles.listContainer, { backgroundColor: list.color }]}
+          onPress={() => this.toggleListModal()}
+        >
+          <Text style={styles.listTitle} numberofLines={1}>
+            {list.name}
+          </Text>
+          <Text style={styles.listTitle} numberofLines={1}>
+            {list.date}
+          </Text>
+          <View>
+            <View style={{ alignItems: 'center' }}>
+              {/* <Text style={styles.date}>12/02/2021</Text> */}
+              <Text style={styles.honeyCollected}>Honey Collected: 2.1 KG</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
-    </View>
-  );
-};
+    );
+  }
+}
 
 const styles = StyleSheet.create({
   listContainer: {

@@ -50,10 +50,10 @@ export default tempData = [
     date: '12/02/2021',
     color: '#57b347',
     todos: [
-      {
-        title: 'Queen Seen',
-        completed: false,
-      },
+      // {
+      //   title: 'Queen Seen',
+      //   completed: false,
+      // },
       {
         title: 'Sign of Pests',
         completed: false,

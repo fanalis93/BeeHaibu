@@ -9,4 +9,5 @@ export default Colors = {
   jolpai: '#b3b300',
   yellowGrey: '#e5e600',
   red: '#ff0000',
+  bee_header: '#f4cc22',
 };

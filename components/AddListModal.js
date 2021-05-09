@@ -62,7 +62,7 @@ export default class AddListModal extends Component {
           <AntDesign name="close" size={24} color={Colors.red} />
         </TouchableOpacity>
         <View style={{ alignself: 'stretch', marginHorizontal: 32 }}>
-          <Text style={styles.title}>Create A New Inspection</Text>
+          <Text style={styles.title}>Create a New Inspection</Text>
           <TextInput
             style={styles.input}
             placeholder="Add Name of Inspection"

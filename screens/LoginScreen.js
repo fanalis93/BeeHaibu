@@ -33,8 +33,9 @@ const LoginScreen = ({ navigation }) => {
       <Image
         source={require('../assets/logo_temp.png')}
         style={{
-          width: 200,
-          height: 200,
+          width: 150,
+          height: 150,
+          justifyContent: 'flex-end',
         }}
       />
       <View style={styles.inputContainer}>

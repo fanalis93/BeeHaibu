@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 import {
   View,
   Text,
@@ -7,6 +7,9 @@ import {
   FlatList,
   ImageBackground,
   Modal,
+  RefreshControl,
+  ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import Colors from '../components/Colors';
 import TodoList from '../components/TodoList';
@@ -18,6 +21,7 @@ import AddListModal from '../components/AddListModal';
 export default class InspectionList extends React.Component {
   state = {
     addTodoVisible: false,
+    isRefreshing: false,
   };
   toggleAddTodoModal() {
     this.setState({ addTodoVisible: !this.state.addTodoVisible });
@@ -25,12 +29,11 @@ export default class InspectionList extends React.Component {
   renderList = (list) => {
     return <TodoList list={list} />;
   };
-
   render() {
     return (
-      <View style={styles.container}>
+      <SafeAreaView style={styles.container}>
         <ImageBackground
-          source={require('../assets/back1.png')}
+          source={require('../assets/new_back.png')}
           style={styles.image}
         >
           <Modal
@@ -64,15 +67,27 @@ export default class InspectionList extends React.Component {
             <FlatList
               data={tempData}
               keyExtractor={(item) => item.name}
-              horzontal={true}
+              horizontal={false}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => this.renderList(item)}
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.isRefreshing}
+                  onRefresh={this._onRefresh}
+                />
+              }
             />
           </View>
         </ImageBackground>
-      </View>
+      </SafeAreaView>
     );
   }
+  _onRefresh = () => {
+    this.setState({ isRefreshing: true });
+    setTimeout(() => {
+      this.setState({ isRefreshing: false });
+    }, 1000);
+  };
 }
 
 const styles = StyleSheet.create({
@@ -88,6 +103,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     height: '100%',
+    // right: 25,
     alignItems: 'center',
   },
   divider: {

@@ -14,6 +14,7 @@ import Colors from './Colors';
 export default class TodoModal extends React.Component {
   state = {
     name: this.props.list.name,
+    inspector: this.props.list.inspector,
     date: this.props.list.date,
     color: this.props.list.color,
     todos: this.props.list.todos,
@@ -61,6 +62,9 @@ export default class TodoModal extends React.Component {
         >
           <View>
             <Text style={styles.title}>{this.state.name}</Text>
+            <Text style={[styles.title, { fontSize: 20 }]}>
+              Br. {this.state.inspector}
+            </Text>
             <Text style={styles.insDate}>{this.state.date}</Text>
           </View>
         </View>

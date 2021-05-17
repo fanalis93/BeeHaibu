@@ -13,6 +13,8 @@ export default class TodoList extends React.Component {
   }
   render() {
     const list = this.props.list;
+    const completedCount = list.todos.filter((todo) => todo.completed).length;
+    const remainingCount = list.todos.length - completedCount;
     return (
       <View>
         <Modal
@@ -28,6 +30,9 @@ export default class TodoList extends React.Component {
         >
           <Text style={styles.listTitle} numberofLines={1}>
             {list.name}
+          </Text>
+          <Text style={styles.listTitle} numberofLines={1}>
+            {list.inspector}
           </Text>
           <Text style={styles.listTitle} numberofLines={1}>
             {list.date}

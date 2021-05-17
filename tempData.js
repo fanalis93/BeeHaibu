@@ -1,6 +1,7 @@
 export default tempData = [
   {
     name: 'Inspection 1',
+    inspector: 'Suhairi',
     date: '12/02/2021',
     color: '#24A6D9',
     todos: [
@@ -24,6 +25,7 @@ export default tempData = [
   },
   {
     name: 'Inspection 2',
+    inspector: 'Suhairi',
     date: '12/02/2021',
     color: '#ff6680',
     todos: [
@@ -47,6 +49,7 @@ export default tempData = [
   },
   {
     name: 'Inspection 3',
+    inspector: 'Suhairi',
     date: '12/02/2021',
     color: '#57b347',
     todos: [
@@ -70,6 +73,7 @@ export default tempData = [
   },
   {
     name: 'Inspection 4',
+    inspector: 'Suhairi',
     date: '12/02/2021',
     color: '#2c698d',
     todos: [

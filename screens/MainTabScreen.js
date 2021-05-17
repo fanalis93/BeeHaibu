@@ -8,6 +8,7 @@ import Dashboard from './Dashboard';
 import InspectionList from './InspectionList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AlertScreen from './AlertScreen';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DashboardStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -26,16 +27,43 @@ const MainTabScreen = () => (
     initialRouteName="Dashboard"
     activeColor="#fff"
     labelStyle={{ fontSize: 15 }}
-    style={{ backgroundColor: 'tomato' }}
+    barStyle={{ backgroundColor: '#f4cc22' }}
   >
-    <Tab.Screen name="Dashboard" component={DashboardStackScreen} />
     <Tab.Screen
-      options={{ headerShown: false }}
+      name="Dashboard"
+      component={DashboardStackScreen}
+      options={{
+        tabBarLabel: 'Dashboard',
+        // tabBarColor: '#009387',
+        tabBarIcon: ({ color }) => (
+          <Icon name="ios-home" color={color} size={25} />
+        ),
+      }}
+    />
+    <Tab.Screen
+      options={{
+        headerShown: true,
+        tabBarLabel: 'Inspection List',
+        // tabBarColor: '#fff',
+        tabBarIcon: ({ color }) => (
+          <Icon name="list-circle-outline" color={color} size={25} />
+        ),
+      }}
       name="InspectionList"
       component={InspectionList}
     />
     <Tab.Screen
-      options={{ headerShown: false }}
+      options={{
+        headerShown: true,
+        tabBarLabel: 'Alerts',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons
+            name="bell-alert-outline"
+            color={color}
+            size={26}
+          />
+        ),
+      }}
       name="AlertScreen"
       component={AlertScreen}
     />
@@ -71,9 +99,14 @@ const DashboardStackScreen = ({ navigation }) => (
       }}
     />
     <DashboardStack.Screen
-      options={{ headerShown: false }}
+      options={{ headerShown: true }}
       name="InspectionList"
       component={InspectionList}
+    />
+    <DashboardStack.Screen
+      options={{ headerShown: true }}
+      name="Alerts"
+      component={AlertScreen}
     />
   </DashboardStack.Navigator>
 );

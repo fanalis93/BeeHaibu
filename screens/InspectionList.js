@@ -22,6 +22,7 @@ export default class InspectionList extends React.Component {
   state = {
     addTodoVisible: false,
     isRefreshing: false,
+    lists: tempData,
   };
   toggleAddTodoModal() {
     this.setState({ addTodoVisible: !this.state.addTodoVisible });
@@ -29,11 +30,21 @@ export default class InspectionList extends React.Component {
   renderList = (list) => {
     return <TodoList list={list} />;
   };
+
+  addList = (list) => {
+    this.setState({
+      lists: [
+        ...this.state.lists,
+        { ...list, id: this.state.lists.length + 1, todos: [] },
+      ],
+    });
+  };
+
   render() {
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground
-          source={require('../assets/new_back.png')}
+          source={require('../assets/new_back_2.png')}
           style={styles.image}
         >
           <Modal
@@ -41,7 +52,10 @@ export default class InspectionList extends React.Component {
             visible={this.state.addTodoVisible}
             onRequestClose={() => this.toggleAddTodoModal()}
           >
-            <AddListModal closeModal={() => this.toggleAddTodoModal()} />
+            <AddListModal
+              closeModal={() => this.toggleAddTodoModal()}
+              addList={this.addList}
+            />
           </Modal>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.divider} />
@@ -65,7 +79,7 @@ export default class InspectionList extends React.Component {
 
           <View style={{ height: 500 }}>
             <FlatList
-              data={tempData}
+              data={this.state.lists}
               keyExtractor={(item) => item.name}
               horizontal={false}
               showsHorizontalScrollIndicator={false}

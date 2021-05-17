@@ -7,6 +7,8 @@ import SignupScreen from './SignupScreen';
 import Dashboard from './Dashboard';
 import InspectionList from './InspectionList';
 import Icon from 'react-native-vector-icons/Ionicons';
+import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import Octicons from 'react-native-vector-icons/Octicons';
 
 const DashboardStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -25,16 +27,28 @@ const UserTabScreen = () => (
     initialRouteName="Dashboard"
     activeColor="#fff"
     labelStyle={{ fontSize: 15 }}
-    style={{ backgroundColor: 'tomato' }}
+    barStyle={{ backgroundColor: '#f4cc22' }}
   >
     <Tab.Screen
-      options={{ title: 'Beehaibu Login' }}
+      options={{
+        title: 'Beehaibu Login',
+        tabBarLabel: 'LogIn',
+        tabBarIcon: ({ color }) => (
+          <MaterialCommunityIcons name="login" color={color} size={26} />
+        ),
+      }}
       name="LoginScreen"
       component={LoginStackScreen}
     />
 
     <Tab.Screen
-      options={{ title: 'Beehaibu Signup' }}
+      options={{
+        title: 'Beehaibu Signup',
+        tabBarLabel: 'SignUp',
+        tabBarIcon: ({ color }) => (
+          <Octicons name="sign-in" color={color} size={26} />
+        ),
+      }}
       name="SignupScreen"
       component={SignupScreen}
     />

@@ -23,19 +23,25 @@ export default class AddListModal extends Component {
   ];
   state = {
     name: '',
+    inspector: '',
     date: '',
     color: this.backgroundColors[0],
   };
 
   createTodo = () => {
-    const { name, date, color } = this.state;
-    tempData.push({
-      name,
-      date,
-      color,
-      todos: [],
-    });
+    const { name, inspector, date, color } = this.state;
+    // tempData.push({
+    //   name,
+    //   inspector,
+    //   date,
+    //   color,
+    //   todos: [],
+    // });
+    const list = { name, inspector, date, color };
+    this.props.addList(list);
+
     this.setState({ name: '' });
+    this.setState({ inspector: '' });
     this.setState({ date: '' });
     this.props.closeModal();
   };
@@ -67,6 +73,11 @@ export default class AddListModal extends Component {
             style={styles.input}
             placeholder="Add Name of Inspection"
             onChangeText={(text) => this.setState({ name: text })}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Add Name of Inspector"
+            onChangeText={(text) => this.setState({ inspector: text })}
           />
           <TextInput
             style={styles.input}

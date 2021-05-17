@@ -28,7 +28,7 @@ export default class InspectionList extends React.Component {
     this.setState({ addTodoVisible: !this.state.addTodoVisible });
   }
   renderList = (list) => {
-    return <TodoList list={list} />;
+    return <TodoList list={list} updateList={this.updateList} />;
   };
 
   addList = (list) => {
@@ -37,6 +37,13 @@ export default class InspectionList extends React.Component {
         ...this.state.lists,
         { ...list, id: this.state.lists.length + 1, todos: [] },
       ],
+    });
+  };
+  updateList = (list) => {
+    this.setState({
+      lists: this.state.lists.map((item) => {
+        return item.id === list.id ? list : item;
+      }),
     });
   };
 
@@ -90,6 +97,7 @@ export default class InspectionList extends React.Component {
                   onRefresh={this._onRefresh}
                 />
               }
+              keyboardShouldPersistTaps="always"
             />
           </View>
         </ImageBackground>

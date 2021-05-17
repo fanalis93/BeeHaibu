@@ -1,5 +1,6 @@
 export default tempData = [
   {
+    id: 1,
     name: 'Inspection 1',
     inspector: 'Suhairi',
     date: '12/02/2021',
@@ -24,6 +25,7 @@ export default tempData = [
     ],
   },
   {
+    id: 2,
     name: 'Inspection 2',
     inspector: 'Suhairi',
     date: '12/02/2021',
@@ -48,6 +50,7 @@ export default tempData = [
     ],
   },
   {
+    id: 3,
     name: 'Inspection 3',
     inspector: 'Suhairi',
     date: '12/02/2021',
@@ -72,6 +75,7 @@ export default tempData = [
     ],
   },
   {
+    id: 4,
     name: 'Inspection 4',
     inspector: 'Suhairi',
     date: '12/02/2021',

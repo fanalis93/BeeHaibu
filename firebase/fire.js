@@ -1,4 +1,7 @@
 import * as firebase from 'firebase';
+// import firebase from '@react-native-firebase/app';
+
+import '@firebase/firestore';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyBxgwbIEAPaebuZS_t18DCzwo6k6YhRZdU',
@@ -13,5 +16,27 @@ const firebaseConfig = {
 if (!firebase.apps.length) {
   firebase.initializeApp(firebaseConfig);
 }
+// class fire {
+//   constructor(callback) {
+//     this.init(callback);
+//   }
+//   init(callback) {
+//     if (!firebase.apps.length) {
+//       firebase.initializeApp(firebaseConfig);
+//     }
+//     firebase.auth().onAuthStateChanged((user) => {
+//       if (user) {
+//         callback(null, user);
+//       } else {
+//         firebase
+//           .auth()
+//           .signInAnonymously()
+//           .catch((error) => {
+//             callback(error);
+//           });
+//       }
+//     });
+//   }
+// }
 
 export default firebase;

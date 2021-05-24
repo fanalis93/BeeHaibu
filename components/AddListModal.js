@@ -24,12 +24,13 @@ export default class AddListModal extends Component {
   state = {
     name: '',
     inspector: '',
+    honeyCollected: '',
     date: '',
     color: this.backgroundColors[0],
   };
 
   createTodo = () => {
-    const { name, inspector, date, color } = this.state;
+    const { name, inspector, honeyCollected, date, color } = this.state;
     // tempData.push({
     //   name,
     //   inspector,
@@ -37,11 +38,12 @@ export default class AddListModal extends Component {
     //   color,
     //   todos: [],
     // });
-    const list = { name, inspector, date, color };
+    const list = { name, inspector, honeyCollected, date, color };
     this.props.addList(list);
 
     this.setState({ name: '' });
     this.setState({ inspector: '' });
+    this.setState({ honeyCollected: '' });
     this.setState({ date: '' });
     this.props.closeModal();
   };
@@ -81,6 +83,11 @@ export default class AddListModal extends Component {
           />
           <TextInput
             style={styles.input}
+            placeholder="Honey Collected"
+            onChangeText={(text) => this.setState({ honeyCollected: text })}
+          />
+          <TextInput
+            style={styles.input}
             placeholder="Date of Inspection"
             onChangeText={(text) => this.setState({ date: text })}
           />
@@ -95,10 +102,10 @@ export default class AddListModal extends Component {
           </View>
           <TouchableOpacity
             style={[styles.create, { backgroundColor: this.state.color }]}
-            onPress={this.createTodo}
+            onPress={this.createTodo} // take reference from here to add "honey collected"
           >
             <Text style={{ color: Colors.white, fontWeight: '600' }}>
-              Create!
+              Create an Inspection!
             </Text>
           </TouchableOpacity>
         </View>

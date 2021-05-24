@@ -10,7 +10,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
-import firebase from '../firebase/fire';
+import fire from '../firebase/fire';
 
 const SignupScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ const SignupScreen = ({ navigation }) => {
 
   const signUp = async () => {
     try {
-      const response = await firebase
+      const response = await fire
         .auth()
         .createUserWithEmailAndPassword(email, password);
       navigation.navigate('LoginScreen');

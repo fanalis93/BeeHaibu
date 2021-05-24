@@ -11,10 +11,12 @@ export default class TodoList extends React.Component {
   toggleListModal() {
     this.setState({ showListVisible: !this.state.showListVisible });
   }
+
   render() {
     const list = this.props.list;
     const completedCount = list.todos.filter((todo) => todo.completed).length;
     const remainingCount = list.todos.length - completedCount;
+    const honeyAmount = list.honeyCollected == '' ? 0 : list.honeyCollected;
     return (
       <View>
         <Modal
@@ -31,6 +33,7 @@ export default class TodoList extends React.Component {
         <TouchableOpacity
           style={[styles.listContainer, { backgroundColor: list.color }]}
           onPress={() => this.toggleListModal()}
+          onLongPress={() => this.props.deleteList(list)} //delete list
         >
           <Text style={styles.listTitle} numberofLines={1}>
             {list.name}
@@ -44,7 +47,9 @@ export default class TodoList extends React.Component {
           <View>
             <View style={{ alignItems: 'center' }}>
               {/* <Text style={styles.date}>12/02/2021</Text> */}
-              <Text style={styles.honeyCollected}>Honey Collected: 2.1 KG</Text>
+              <Text style={styles.honeyCollected}>
+                Honey Collected: {honeyAmount} KG
+              </Text>
             </View>
           </View>
         </TouchableOpacity>

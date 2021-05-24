@@ -10,44 +10,92 @@ import {
   RefreshControl,
   ScrollView,
   SafeAreaView,
+  ActivityIndicator,
 } from 'react-native';
 import Colors from '../components/Colors';
 import TodoList from '../components/TodoList';
 import tempData from '../tempData';
-import { AntDesign } from '@expo/vector-icons';
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 import AddListModal from '../components/AddListModal';
+import inspectFire from '../firebase/inspectFire';
 
 // const image = {source: '../assets/back1'};
 export default class InspectionList extends React.Component {
   state = {
     addTodoVisible: false,
     isRefreshing: false,
-    lists: tempData,
+    lists: [],
+    user: {},
+    loading: true,
   };
+  componentDidMount() {
+    firebase = new inspectFire((error, user) => {
+      if (error) {
+        return alert('Uh oh, something went wrong!');
+      }
+      firebase.getLists((lists) => {
+        this.setState({ lists, user }, () => {
+          this.setState({ loading: false });
+        });
+      });
+      this.setState({ user });
+    });
+  }
+
+  componentWillUnmount() {
+    firebase.detach();
+  }
+
   toggleAddTodoModal() {
     this.setState({ addTodoVisible: !this.state.addTodoVisible });
   }
   renderList = (list) => {
-    return <TodoList list={list} updateList={this.updateList} />;
+    return (
+      <TodoList
+        list={list}
+        updateList={this.updateList}
+        deleteList={this.deleteList}
+      />
+    );
   };
 
   addList = (list) => {
-    this.setState({
-      lists: [
-        ...this.state.lists,
-        { ...list, id: this.state.lists.length + 1, todos: [] },
-      ],
-    });
-  };
-  updateList = (list) => {
-    this.setState({
-      lists: this.state.lists.map((item) => {
-        return item.id === list.id ? list : item;
-      }),
+    // this.setState({
+    //   lists: [
+    //     ...this.state.lists,
+    //     { ...list, id: this.state.lists.length + 1, todos: [] },
+    //   ],
+    // });
+    firebase.addList({
+      name: list.name,
+      inspector: list.inspector,
+      honeyCollected: list.honeyCollected,
+      date: list.date,
+      color: list.color,
+      todos: [],
     });
   };
 
+  updateList = (list) => {
+    // this.setState({
+    //   lists: this.state.lists.map((item) => {
+    //     return item.id === list.id ? list : item;
+    //   }),
+    // });
+    firebase.updateList(list);
+  };
+  deleteList = (list) => {
+    firebase.deleteList(list);
+  };
+
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={Colors.blue} />
+        </View>
+      );
+    }
     return (
       <SafeAreaView style={styles.container}>
         <ImageBackground
@@ -64,6 +112,9 @@ export default class InspectionList extends React.Component {
               addList={this.addList}
             />
           </Modal>
+          <View>
+            <Text>User: {this.state.user.uid}</Text>
+          </View>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.divider} />
             <Text style={styles.title}>
@@ -87,7 +138,7 @@ export default class InspectionList extends React.Component {
           <View style={{ height: 500 }}>
             <FlatList
               data={this.state.lists}
-              keyExtractor={(item) => item.name}
+              keyExtractor={(item) => item.id.toString()}
               horizontal={false}
               showsHorizontalScrollIndicator={false}
               renderItem={({ item }) => this.renderList(item)}
@@ -99,6 +150,25 @@ export default class InspectionList extends React.Component {
               }
               keyboardShouldPersistTaps="always"
             />
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              marginTop: 32,
+              // backgroundColor: Colors.bee_header,
+              borderRadius: 15,
+              borderColor: Colors.lightBlue,
+              borderWidth: 2,
+              padding: 10,
+              flexDirection: 'row',
+            }}
+          >
+            <Ionicons
+              name="help-circle-outline"
+              size={16}
+              color={Colors.blue}
+            />
+            <Text>Long Press a list to delete.</Text>
           </View>
         </ImageBackground>
       </SafeAreaView>

@@ -10,7 +10,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView } from 'react-native';
 import { useState } from 'react';
-import firebase from '../firebase/fire';
+import fire from '../firebase/fire';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -19,7 +19,7 @@ const LoginScreen = ({ navigation }) => {
 
   const signIn = async () => {
     try {
-      const response = await firebase
+      const response = await fire
         .auth()
         .signInWithEmailAndPassword(email, password);
       navigation.navigate('Dashboard');

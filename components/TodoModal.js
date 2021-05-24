@@ -9,10 +9,13 @@ import {
   FlatList,
   TextInput,
   Keyboard,
+  Animated,
 } from 'react-native';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import Colors from './Colors';
 import { colorsDark } from 'react-native-elements/dist/config';
+import { Swipeable } from 'react-native-gesture-handler';
+// import Swipeable from 'react-native-gesture-handler/Swipeable';
 
 export default class TodoModal extends React.Component {
   state = {
@@ -42,27 +45,42 @@ export default class TodoModal extends React.Component {
 
   renderTodo = (todo, index) => {
     return (
-      <View style={styles.todoContainer}>
-        <TouchableOpacity onPress={() => this.toggleTodoCompleted(index)}>
-          <Ionicons
-            name={todo.completed ? 'ios-square' : 'ios-square-outline'}
-            size={24}
-            color={Colors.grey}
-            style={{ width: 32 }}
-          />
-        </TouchableOpacity>
-        <Text
-          style={[
-            styles.todo,
-            {
-              color: todo.completed ? Colors.black : Colors.red,
-              //textDecorationLine: todo.completed ? 'line-through' : 'none',
-            },
-          ]}
-        >
-          {todo.title}
-        </Text>
-      </View>
+      <Swipeable
+        renderRightActions={(_, dragX) => this.rightActions(dragX, index)}
+      >
+        <View style={styles.todoContainer}>
+          <TouchableOpacity onPress={() => this.toggleTodoCompleted(index)}>
+            <Ionicons
+              name={todo.completed ? 'ios-square' : 'ios-square-outline'}
+              size={24}
+              color={Colors.grey}
+              style={{ width: 32 }}
+            />
+          </TouchableOpacity>
+          <Text
+            style={[
+              styles.todo,
+              {
+                color: todo.completed ? Colors.black : Colors.red,
+                //textDecorationLine: todo.completed ? 'line-through' : 'none',
+              },
+            ]}
+          >
+            {todo.title}
+          </Text>
+        </View>
+      </Swipeable>
+    );
+  };
+  rightActions = (dragX, index) => {
+    return (
+      <TouchableOpacity>
+        <Animated.View style={styles.deleteButton}>
+          <Animated.Text style={{ color: Colors.white, fontWeight: '800' }}>
+            Delete
+          </Animated.Text>
+        </Animated.View>
+      </TouchableOpacity>
     );
   };
   render() {
@@ -90,6 +108,10 @@ export default class TodoModal extends React.Component {
               <Text style={[styles.title, { fontSize: 20 }]}>
                 Br. {list.inspector}
               </Text>
+              <Text style={[styles.title, { fontSize: 15 }]}>
+                Honey Collected{' - '}
+                {list.honeyCollected == '' ? 0 : list.honeyCollected} KG
+              </Text>
               <Text style={styles.insDate}>{list.date}</Text>
             </View>
           </View>
@@ -97,7 +119,7 @@ export default class TodoModal extends React.Component {
             <FlatList
               data={list.todos}
               renderItem={({ item, index }) => this.renderTodo(item, index)}
-              keyExtractor={(item) => item.title}
+              keyExtractor={(_, index) => index.toString()}
               contentContainerStyle={{
                 paddingHorizontal: 32,
                 paddingVertical: 64,
@@ -180,5 +202,12 @@ const styles = StyleSheet.create({
     padding: 16,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  deleteButton: {
+    flex: 1,
+    backgroundColor: Colors.red,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 80,
   },
 });

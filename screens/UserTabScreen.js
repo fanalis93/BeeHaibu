@@ -24,7 +24,7 @@ const globalScreenOptions = {
 
 const UserTabScreen = () => (
   <Tab.Navigator
-    initialRouteName="Dashboard"
+    initialRouteName="LoginScreen"
     activeColor="#fff"
     labelStyle={{ fontSize: 15 }}
     barStyle={{ backgroundColor: '#f4cc22' }}
@@ -62,6 +62,7 @@ const LoginStackScreen = ({ navigation }) => (
       name="Login"
       component={LoginScreen}
       options={{
+        headerShown: false,
         title: 'BeeHaibu Login',
         headerLeft: () => (
           <Icon.Button

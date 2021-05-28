@@ -9,6 +9,8 @@ import InspectionList from './InspectionList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AlertScreen from './AlertScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { Button } from 'react-native';
+import UserTabScreen from './UserTabScreen';
 
 const DashboardStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -67,17 +69,6 @@ const MainTabScreen = () => (
       name="AlertScreen"
       component={AlertScreen}
     />
-    {/* <Tab.Screen
-      options={{ title: 'Beehaibu Login' }}
-      name="LoginScreen"
-      component={LoginScreen}
-    />
-
-    <Tab.Screen
-      options={{ title: 'Beehaibu Signup' }}
-      name="SignupScreen"
-      component={SignupScreen}
-    /> */}
   </Tab.Navigator>
 );
 export default MainTabScreen;
@@ -107,6 +98,11 @@ const DashboardStackScreen = ({ navigation }) => (
       options={{ headerShown: true }}
       name="Alerts"
       component={AlertScreen}
+    />
+    <DashboardStack.Screen
+      options={{ headerShown: false }}
+      name="LoginScreen"
+      component={LoginScreen}
     />
   </DashboardStack.Navigator>
 );

@@ -10,14 +10,18 @@ import {
   SafeAreaView,
   Dimensions,
   Modal,
+  Button,
+  Alert,
 } from 'react-native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import AddInspection from './AddInspection';
 import InspectionList from './InspectionList';
+// import UserTabScreen from './UserTabScreen';
 import { KeyboardAvoidingView } from 'react-native';
 import Colors from '../components/Colors';
+import Vizualization from '../components/Vizualization';
 import {
   LineChart,
   BarChart,
@@ -27,44 +31,7 @@ import {
   StackedBarChart,
 } from 'react-native-chart-kit';
 import { useFonts } from '@use-expo/font';
-
-const screenWidth = Dimensions.get('window').width;
-const chartConfig1 = {
-  backgroundColor: '#e26a00',
-  backgroundGradientFrom: '#fb8c00',
-  // backgroundGradientFrom: '#f4cc22',
-  backgroundGradientTo: '#ffa726',
-  decimalPlaces: 2, // optional, defaults to 2dp
-  color: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  labelColor: (opacity = 1) => `rgba(255, 255, 255, ${opacity})`,
-  style: {
-    borderRadius: 16,
-  },
-  propsForDots: {
-    r: '6',
-    strokeWidth: '2',
-    stroke: '#ffa726',
-  },
-};
-
-const data = {
-  labels: ['January', 'February', 'March', 'April', 'May', 'June'],
-  datasets: [
-    {
-      data: [
-        Math.random() * 90,
-        Math.random() * 90,
-        Math.random() * 90,
-        Math.random() * 90,
-        Math.random() * 90,
-        Math.random() * 90,
-      ],
-      color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
-      strokeWidth: 2, // optional
-    },
-  ],
-  legend: ['Temperature'], // optional
-};
+import fire from '../firebase/fire';
 
 //----------------------------------------------------------------------------------------------------!!!!!!!!!!!!
 const Dashboard = ({ navigation }) => {
@@ -75,9 +42,17 @@ const Dashboard = ({ navigation }) => {
       setIsRefreshing(false);
     }, 1000);
   }, []);
+  const signOutUser = async () => {
+    try {
+      const response = await fire.auth().signOut();
+      navigation.navigate('LoginScreen');
+    } catch (e) {
+      console.log(e);
+    }
+  };
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView
+    <ScrollView style={styles.container}>
+      <SafeAreaView
         contentContainerStyle={styles.scrollView}
         refreshControl={
           <RefreshControl refreshing={isRefreshing} onRefresh={handleRefresh} />
@@ -87,31 +62,31 @@ const Dashboard = ({ navigation }) => {
           source={require('../assets/new_back_2.png')}
           style={styles.image}
         >
-          <LineChart
-            data={data}
-            width={Dimensions.get('window').width} // from react-native
-            height={220}
-            yAxisLabel="T"
-            yAxisSuffix="C"
-            yAxisInterval={1} // optional, defaults to 1
-            chartConfig={chartConfig1}
-            bezier
+          {/* <TouchableOpacity
             style={{
-              marginVertical: 18,
-              marginLeft: 15,
-              marginRight: 15,
-              borderRadius: 15,
-              alignItems: 'center',
+              alignSelf: 'flex-end',
+              padding: 15,
+              backgroundColor: Colors.lightBlue,
+              borderRadius: 10,
+              margin: 10,
             }}
-          />
+            onPress={signOutUser}
+          >
+            <Text>Logout</Text>
+          </TouchableOpacity> */}
+          <Vizualization />
           <View style={{ marginLeft: 12 }}>
             <Text style={[styles.bodyText]}>Current Temperature: {'-'}</Text>
             <Text style={[styles.bodyText]}>Current Humidity: {'-'}</Text>
             <Text style={[styles.bodyText]}>Supplier: {'-'}</Text>
+            {/* <TouchableOpacity onPress={signOutUser}>
+              <Text>Logout</Text>
+            </TouchableOpacity> */}
           </View>
+          {/* <Button containerStyle={styles.button} /> */}
         </ImageBackground>
-      </ScrollView>
-    </SafeAreaView>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
@@ -123,9 +98,10 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   bodyText: {
-    fontSize: 30,
-    fontWeight: '700',
+    fontSize: 25,
+    fontWeight: 'bold',
     color: Colors.black,
+    letterSpacing: 2,
     // fontFamily: 'Ubuntu',
   },
   button: {

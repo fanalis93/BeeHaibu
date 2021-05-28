@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Button, Input, Image, Icon } from 'react-native-elements';
 import {
   StyleSheet,
@@ -6,10 +6,10 @@ import {
   Text,
   TouchableOpacity,
   TextInput,
+  Alert,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView } from 'react-native';
-import { useState } from 'react';
 import fire from '../firebase/fire';
 
 const LoginScreen = ({ navigation }) => {
@@ -27,6 +27,28 @@ const LoginScreen = ({ navigation }) => {
       setError(err.message);
     }
   };
+  // const signOutUser = async () => {
+  //   try {
+  //     const response = await fire.auth().signOut();
+  //     navigation.navigate('LoginScreen');
+  //   } catch (e) {
+  //     console.log(e);
+  //   }
+  // };
+  const showAlert = () => {
+    Alert.alert('You need to...');
+  };
+  useEffect(() => {
+    const signOutUser = async () => {
+      try {
+        const response = await fire.auth().signOut();
+        // navigation.navigate('LoginScreen');
+      } catch (e) {
+        console.log(e);
+      }
+    };
+    signOutUser();
+  }, []);
   return (
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style="light" />

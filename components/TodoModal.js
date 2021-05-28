@@ -112,7 +112,7 @@ export default class TodoModal extends React.Component {
                 Honey Collected{' - '}
                 {list.honeyCollected == '' ? 0 : list.honeyCollected} KG
               </Text>
-              <Text style={styles.insDate}>{list.date}</Text>
+              <Text style={styles.insDate}>{list.dateTime}</Text>
             </View>
           </View>
           <View style={[styles.section, { flex: 3 }]}>

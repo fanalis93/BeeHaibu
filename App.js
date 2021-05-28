@@ -13,7 +13,8 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/Ionicons';
 import MainTabScreen from './screens/MainTabScreen';
 import UserTabScreen from './screens/UserTabScreen';
-
+import Logout from './components/Logout';
+import fire from './firebase/fire';
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createStackNavigator();
 
@@ -54,17 +55,24 @@ const globalScreenOptions = {
 //     </NavigationContainer>
 //   );
 // };
+
 const Drawer = createDrawerNavigator();
-const App = () => {
+const App = ({ navigation }) => {
+  const signOutUser = async () => {
+    try {
+      const response = await fire.auth().signOut();
+      navigation.navigate('UserTabScreen', { screen: 'LoginScreen' });
+    } catch (err) {
+      console.log(err);
+    }
+  };
   return (
     <NavigationContainer>
-      {/* <Stack.Navigator screenOptions={globalScreenOptions}>
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Details" component={DetailScreen} />
-      </Stack.Navigator> */}
-      <Drawer.Navigator initialRouteName="Home">
+      {/* initialRouteName = Home/Login/Signup */}
+      <Drawer.Navigator initialRouteName="Login">
         <Drawer.Screen name="Dashboard" component={MainTabScreen} />
-        <Drawer.Screen name="Login" component={UserTabScreen} />
+        {/* <Drawer.Screen name="Login" component={UserTabScreen} /> */}
+        <Drawer.Screen name="Logout" component={UserTabScreen} />
       </Drawer.Navigator>
     </NavigationContainer>
   );

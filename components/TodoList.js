@@ -3,7 +3,7 @@ import { BackHandler } from 'react-native';
 import { StyleSheet, Text, View, TouchableOpacity, Modal } from 'react-native';
 import Colors from './Colors';
 import TodoModal from './TodoModal';
-
+import moment from 'moment';
 export default class TodoList extends React.Component {
   state = {
     showListVisible: false,
@@ -42,7 +42,8 @@ export default class TodoList extends React.Component {
             {list.inspector}
           </Text>
           <Text style={styles.listTitle} numberofLines={1}>
-            {list.date}
+            {list.dateTime}
+            {/* {moment(list.dateTime).format('MMMM Do YYYY')} */}
           </Text>
           <View>
             <View style={{ alignItems: 'center' }}>

@@ -10,7 +10,8 @@ import {
 import { AntDesign } from '@expo/vector-icons';
 import Colors from './Colors';
 import tempData from '../tempData';
-
+import CustomDatePicker from './CustomDatePicker';
+import moment from 'moment';
 export default class AddListModal extends Component {
   backgroundColors = [
     '#5CD859',
@@ -25,12 +26,12 @@ export default class AddListModal extends Component {
     name: '',
     inspector: '',
     honeyCollected: '',
-    date: '',
+    dateTime: '',
     color: this.backgroundColors[0],
   };
 
   createTodo = () => {
-    const { name, inspector, honeyCollected, date, color } = this.state;
+    const { name, inspector, honeyCollected, dateTime, color } = this.state;
     // tempData.push({
     //   name,
     //   inspector,
@@ -38,13 +39,13 @@ export default class AddListModal extends Component {
     //   color,
     //   todos: [],
     // });
-    const list = { name, inspector, honeyCollected, date, color };
+    const list = { name, inspector, honeyCollected, dateTime, color };
     this.props.addList(list);
 
     this.setState({ name: '' });
     this.setState({ inspector: '' });
     this.setState({ honeyCollected: '' });
-    this.setState({ date: '' });
+    this.setState({ dateTime: '' });
     this.props.closeModal();
   };
 
@@ -86,11 +87,20 @@ export default class AddListModal extends Component {
             placeholder="Honey Collected"
             onChangeText={(text) => this.setState({ honeyCollected: text })}
           />
-          <TextInput
-            style={styles.input}
-            placeholder="Date of Inspection"
-            onChangeText={(text) => this.setState({ date: text })}
-          />
+          <View style={styles.input}>
+            <Text style={{ fontSize: 18, color: Colors.grey }}>
+              Date of Inspection
+            </Text>
+            <CustomDatePicker
+              defaultDate="1996-02-20"
+              textStyle={{ color: '#fff' }}
+              onDateChange={(value) =>
+                this.setState({
+                  dateTime: moment(value).format('MMMM Do, YYYY'),
+                })
+              }
+            />
+          </View>
           <View
             style={{
               flexDirection: 'row',
@@ -135,6 +145,7 @@ const styles = StyleSheet.create({
     marginTop: 8,
     paddingHorizontal: 16,
     fontSize: 18,
+    justifyContent: 'center',
   },
   create: {
     marginTop: 24,

@@ -70,9 +70,22 @@ export default class InspectionList extends React.Component {
       name: list.name,
       inspector: list.inspector,
       honeyCollected: list.honeyCollected,
-      date: list.date,
+      dateTime: list.dateTime,
       color: list.color,
-      todos: [],
+      todos: [
+        {
+          completed: false,
+          title: 'Sign of Pests',
+        },
+        {
+          completed: false,
+          title: 'Sign of Thievery',
+        },
+        {
+          completed: false,
+          title: 'Sign of Eggs',
+        },
+      ],
     });
   };
 
@@ -117,9 +130,9 @@ export default class InspectionList extends React.Component {
           </View>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.divider} />
-            <Text style={styles.title}>
+            <Text style={[styles.title, { color: Colors.bee_header }]}>
               Inspection
-              <Text style={{ fontWeight: '300', color: Colors.jolpai }}>
+              <Text style={{ fontWeight: '300', color: Colors.black }}>
                 List
               </Text>
             </Text>

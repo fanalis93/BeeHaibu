@@ -15,7 +15,7 @@ const firebaseConfig = {
   measurementId: 'G-65WJKVP7H9',
 };
 
-class inspectFire {
+class hiveFire {
   constructor(callback) {
     this.init(callback);
   }
@@ -36,25 +36,25 @@ class inspectFire {
       }
     });
   }
-  getLists(callback) {
-    let ref = this.ref.orderBy('name');
+  getHives(callback) {
+    let ref = this.ref.orderBy('hiveName');
 
     this.unsubscribe = ref.onSnapshot((snapshot) => {
-      lists = [];
+      hives = [];
 
       snapshot.forEach((doc) => {
-        lists.push({ id: doc.id, ...doc.data() });
+        hives.push({ id: doc.id, ...doc.data() });
       });
-      callback(lists);
+      callback(hives);
     });
   }
-  addList(list) {
+  addHive(hive) {
     let ref = this.ref;
-    ref.add(list);
+    ref.add(hive);
   }
-  updateList(list) {
+  updateHive(hive) {
     let ref = this.ref;
-    ref.doc(list.id).update(list);
+    ref.doc(hive.id).update(hive);
   }
   get userId() {
     return firebase.auth().currentUser.uid;
@@ -64,16 +64,16 @@ class inspectFire {
       .firestore()
       .collection('users')
       .doc(this.userId)
-      .collection('lists');
+      .collection('hives');
   }
   detach() {
     this.unsubscribe();
   }
-  deleteList(list) {
+  deleteHive(hive) {
     let ref = this.ref;
-    ref.doc(list.id).delete();
-    Alert.alert('Inspection Deleted');
+    ref.doc(hive.id).delete();
+    Alert.alert('Hive Profile Deleted');
   }
 }
 
-export default inspectFire;
+export default hiveFire;

@@ -8,7 +8,7 @@ import {
   TextInput,
 } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import { KeyboardAvoidingView } from 'react-native';
+import { KeyboardAvoidingView, Alert } from 'react-native';
 import { useState } from 'react';
 import fire from '../firebase/fire';
 

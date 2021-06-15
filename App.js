@@ -1,7 +1,7 @@
 import { StatusBar } from 'expo-status-bar';
 import 'react-native-gesture-handler';
 import React from 'react';
-import { StyleSheet, Text, View, Button } from 'react-native';
+import { StyleSheet, Text, View, Button, Alert } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import LoginScreen from './screens/LoginScreen';
 import SignupScreen from './screens/SignupScreen';
@@ -13,6 +13,7 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 import Icon from 'react-native-vector-icons/Ionicons';
 import MainTabScreen from './screens/MainTabScreen';
 import UserTabScreen from './screens/UserTabScreen';
+// import LoadingScreen from './screens/LoadingScreen';
 import Logout from './components/Logout';
 import fire from './firebase/fire';
 const Tab = createMaterialBottomTabNavigator();
@@ -66,13 +67,21 @@ const App = ({ navigation }) => {
       console.log(err);
     }
   };
+  const showAlert = () => {
+    Alert.alert('User logged out successfully');
+  };
   return (
     <NavigationContainer>
       {/* initialRouteName = Home/Login/Signup */}
-      <Drawer.Navigator initialRouteName="Login">
+      <Drawer.Navigator initialRouteName="Dashboard">
+        {/* <Drawer.Screen name="Loading" component={LoadingScreen} /> */}
         <Drawer.Screen name="Dashboard" component={MainTabScreen} />
         {/* <Drawer.Screen name="Login" component={UserTabScreen} /> */}
-        <Drawer.Screen name="Logout" component={UserTabScreen} />
+        <Drawer.Screen
+          name="Logout"
+          component={UserTabScreen}
+          onPress={showAlert}
+        />
       </Drawer.Navigator>
     </NavigationContainer>
   );

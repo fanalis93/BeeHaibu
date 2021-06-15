@@ -91,7 +91,7 @@ export default class AlertScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>This is AlertScreen</Text>
+        <Text style={styles.title}>List of Alerts</Text>
         <View style={styles.alertList}>
           <Text style={[styles.listText, { marginRight: 45 }]}>
             Honey Harvest

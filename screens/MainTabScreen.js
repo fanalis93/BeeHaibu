@@ -6,11 +6,13 @@ import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import Dashboard from './Dashboard';
 import InspectionList from './InspectionList';
+import HiveList from './HiveList';
 import Icon from 'react-native-vector-icons/Ionicons';
 import AlertScreen from './AlertScreen';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { Button } from 'react-native';
 import UserTabScreen from './UserTabScreen';
+import Colors from '../components/Colors';
 
 const DashboardStack = createStackNavigator();
 const LoginStack = createStackNavigator();
@@ -26,17 +28,28 @@ const globalScreenOptions = {
 
 const MainTabScreen = () => (
   <Tab.Navigator
-    initialRouteName="Dashboard"
+    initialRouteName="HiveList"
     activeColor="#fff"
     labelStyle={{ fontSize: 15 }}
     barStyle={{ backgroundColor: '#f4cc22' }}
   >
     <Tab.Screen
+      name="HiveList"
+      component={HiveList}
+      options={{
+        tabBarLabel: 'HiveList',
+        tabBarColor: '#009387', //tab bar er color change kor (bottom tabbar)
+        tabBarIcon: ({ color }) => (
+          <Icon name="archive-outline" color={color} size={25} />
+        ),
+      }}
+    />
+    <Tab.Screen
       name="Dashboard"
       component={DashboardStackScreen}
       options={{
         tabBarLabel: 'Dashboard',
-        // tabBarColor: '#009387',
+        tabBarColor: Colors.bee_header,
         tabBarIcon: ({ color }) => (
           <Icon name="ios-home" color={color} size={25} />
         ),
@@ -46,7 +59,7 @@ const MainTabScreen = () => (
       options={{
         headerShown: true,
         tabBarLabel: 'Inspection List',
-        // tabBarColor: '#fff',
+        tabBarColor: Colors.yellowGrey,
         tabBarIcon: ({ color }) => (
           <Icon name="list-circle-outline" color={color} size={25} />
         ),
@@ -57,6 +70,7 @@ const MainTabScreen = () => (
     <Tab.Screen
       options={{
         headerShown: true,
+        tabBarColor: Colors.lightBlue,
         tabBarLabel: 'Alerts',
         tabBarIcon: ({ color }) => (
           <MaterialCommunityIcons
@@ -90,6 +104,11 @@ const DashboardStackScreen = ({ navigation }) => (
       }}
     />
     <DashboardStack.Screen
+      // options={{ headerShown: true }}
+      name="HiveList"
+      component={HiveList}
+    />
+    <DashboardStack.Screen
       options={{ headerShown: true }}
       name="InspectionList"
       component={InspectionList}
@@ -102,7 +121,7 @@ const DashboardStackScreen = ({ navigation }) => (
     <DashboardStack.Screen
       options={{ headerShown: false }}
       name="LoginScreen"
-      component={LoginScreen}
+      component={UserTabScreen}
     />
   </DashboardStack.Navigator>
 );

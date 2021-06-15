@@ -12,7 +12,7 @@ import Colors from './Colors';
 import tempData from '../tempData';
 import CustomDatePicker from './CustomDatePicker';
 import moment from 'moment';
-export default class AddListModal extends Component {
+export default class AddHiveModal extends Component {
   backgroundColors = [
     '#5CD859',
     '#24A6D9',
@@ -23,15 +23,22 @@ export default class AddListModal extends Component {
     '#D88559',
   ];
   state = {
-    name: '',
-    inspector: '',
-    honeyCollected: '',
-    dateTime: '',
-    color: this.backgroundColors[0],
+    hiveName: '',
+    hiveLocation: '',
+    hiveSupplierName: '',
+    hiveBeeSpecies: '',
+    colonyStartDate: '',
+    // color: this.backgroundColors[0],
   };
 
-  createTodo = () => {
-    const { name, inspector, honeyCollected, dateTime, color } = this.state;
+  createHive = () => {
+    const {
+      hiveName,
+      hiveLocation,
+      hiveSupplierName,
+      hiveBeeSpecies,
+      colonyStartDate,
+    } = this.state;
     // tempData.push({
     //   name,
     //   inspector,
@@ -39,13 +46,21 @@ export default class AddListModal extends Component {
     //   color,
     //   todos: [],
     // });
-    const list = { name, inspector, honeyCollected, dateTime, color };
-    this.props.addList(list);
+    const hive = {
+      hiveName,
+      hiveLocation,
+      hiveSupplierName,
+      hiveBeeSpecies,
+      colonyStartDate,
+    };
+    this.props.addHive(hive);
 
-    this.setState({ name: '' });
-    this.setState({ inspector: '' });
-    this.setState({ honeyCollected: '' });
-    this.setState({ dateTime: '' });
+    this.setState({ hiveName: '' });
+    this.setState({ hiveLocation: '' });
+    this.setState({ hiveSupplierName: '' });
+    this.setState({ hiveBeeSpecies: '' });
+    this.setState({ colonyStartDate: '' });
+
     this.props.closeModal();
   };
 
@@ -75,53 +90,51 @@ export default class AddListModal extends Component {
             alignself: 'stretch',
             marginHorizontal: 32,
             overflow: 'hidden',
+            // backgroundColor: Colors.lightBlue,
+            width: '80%',
           }}
         >
-          <Text style={styles.title}>Create a New Inspection</Text>
+          <Text style={styles.title}>Create a Hive Profile</Text>
           <TextInput
             style={styles.input}
-            placeholder="Add Name of Inspection"
-            onChangeText={(text) => this.setState({ name: text })}
+            placeholder="Name of the Hide / Hive_ID"
+            onChangeText={(text) => this.setState({ hiveName: text })}
           />
           <TextInput
             style={styles.input}
-            placeholder="Add Name of Inspector"
-            onChangeText={(text) => this.setState({ inspector: text })}
+            placeholder="Hive Location"
+            onChangeText={(text) => this.setState({ hiveLocation: text })}
           />
           <TextInput
             style={styles.input}
-            placeholder="Honey Collected"
-            onChangeText={(text) => this.setState({ honeyCollected: text })}
+            placeholder="Hive Supplier Name"
+            onChangeText={(text) => this.setState({ hiveSupplierName: text })}
+          />
+          <TextInput
+            style={styles.input}
+            placeholder="Honey Bee Species Type"
+            onChangeText={(text) => this.setState({ hiveBeeSpecies: text })}
           />
           <View style={styles.input}>
             <Text style={{ fontSize: 18, color: Colors.grey }}>
-              Date of Inspection
+              Colony Start Date
             </Text>
             <CustomDatePicker
               defaultDate="1996-02-20"
               textStyle={{ color: '#fff' }}
               onDateChange={(value) =>
                 this.setState({
-                  dateTime: moment(value).format('MMMM Do, YYYY'),
+                  colonyStartDate: moment(value).format('MMMM Do, YYYY'),
                 })
               }
             />
           </View>
-          <View
-            style={{
-              flexDirection: 'row',
-              justifyContent: 'space-between',
-              marginTop: 12,
-            }}
-          >
-            {this.renderColors()}
-          </View>
           <TouchableOpacity
-            style={[styles.create, { backgroundColor: this.state.color }]}
-            onPress={this.createTodo} // take reference from here to add "honey collected"
+            style={[styles.create, { backgroundColor: Colors.bee_header }]}
+            onPress={this.createHive} // take reference from here to add "honey collected"
           >
             <Text style={{ color: Colors.white, fontWeight: '600' }}>
-              Create an Inspection!
+              Create!
             </Text>
           </TouchableOpacity>
           <View

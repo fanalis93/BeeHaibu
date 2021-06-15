@@ -18,6 +18,7 @@ import LoginScreen from './LoginScreen';
 import SignupScreen from './SignupScreen';
 import AddInspection from './AddInspection';
 import InspectionList from './InspectionList';
+import HiveList from './HiveList';
 // import UserTabScreen from './UserTabScreen';
 import { KeyboardAvoidingView } from 'react-native';
 import Colors from '../components/Colors';
@@ -76,9 +77,17 @@ const Dashboard = ({ navigation }) => {
           </TouchableOpacity> */}
           <Vizualization />
           <View style={{ marginLeft: 12 }}>
-            <Text style={[styles.bodyText]}>Current Temperature: {'-'}</Text>
-            <Text style={[styles.bodyText]}>Current Humidity: {'-'}</Text>
-            <Text style={[styles.bodyText]}>Supplier: {'-'}</Text>
+            <Text style={[styles.bodyText]}>Hive ID: Hive_01</Text>
+            <Text style={[styles.bodyText]}>Bee Species: Meliponines</Text>
+            <Text style={[styles.bodyText]}>
+              Hive Location: Mahallah Aminah
+            </Text>
+            <Text style={[styles.bodyText]}>Current Temperature: 32.60 C</Text>
+            <Text style={[styles.bodyText]}>Current Humidity: 57.20</Text>
+            <Text style={[styles.bodyText]}>Supplier: Melipoly</Text>
+            {/* <TouchableOpacity onPress={() => navigation.navigate('HiveList')}>
+              <Text>HIves</Text>
+            </TouchableOpacity> */}
             {/* <TouchableOpacity onPress={signOutUser}>
               <Text>Logout</Text>
             </TouchableOpacity> */}
@@ -98,7 +107,7 @@ const styles = StyleSheet.create({
     // justifyContent: 'center',
   },
   bodyText: {
-    fontSize: 25,
+    fontSize: 20,
     fontWeight: 'bold',
     color: Colors.black,
     letterSpacing: 2,

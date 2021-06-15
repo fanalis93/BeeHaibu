@@ -10,13 +10,22 @@ import {
   TextInput,
   Keyboard,
   Animated,
+  Image,
+  ScrollView,
+  Platform,
+  Button,
+  ActivityIndicator,
 } from 'react-native';
+import * as ImagePicker from 'expo-image-picker';
 import { AntDesign, Ionicons } from '@expo/vector-icons';
 import Colors from './Colors';
 import { colorsDark } from 'react-native-elements/dist/config';
 import { Swipeable } from 'react-native-gesture-handler';
+import fire from '../firebase/fire';
 // import Swipeable from 'react-native-gesture-handler/Swipeable';
-
+import AddImage from './AddImage';
+import Constants from 'expo-constants';
+import * as Permissions from 'expo-permissions';
 export default class TodoModal extends React.Component {
   state = {
     // name: this.props.list.name,
@@ -26,6 +35,8 @@ export default class TodoModal extends React.Component {
     // todos: this.props.list.todos,
 
     newTodo: '',
+    image: null,
+    uploading: false,
   };
 
   toggleTodoCompleted = (index) => {
@@ -41,6 +52,69 @@ export default class TodoModal extends React.Component {
     this.props.updateList(list);
     this.setState({ newTodo: '' });
     Keyboard.dismiss();
+  };
+  componentDidMount() {
+    this.getPermissionAsync();
+  }
+
+  getPermissionAsync = async () => {
+    if (Constants.platform.ios) {
+      const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+      if (status !== 'granted') {
+        alert('Sorry, we need camera roll permissions to make this work!');
+      }
+    }
+  };
+
+  pickImage = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.All,
+      allowsEditing: true,
+      aspect: [4, 3],
+      quality: 1,
+    });
+
+    console.log(result);
+
+    if (!result.cancelled) {
+      this.setState({ image: result.uri });
+    }
+  };
+  uploadImage = async () => {
+    const blob = await new Promise((resolve, reject) => {
+      const xhr = new XMLHttpRequest();
+      xhr.onload = function () {
+        resolve(xhr.response);
+      };
+      xhr.onerror = function () {
+        reject(new TypeError('Network request failed'));
+      };
+      xhr.responseType = 'blob';
+      xhr.open('GET', this.state.image, true);
+      xhr.send(null);
+    });
+    const ref = fire.storage().ref().child(new Date().toISOString());
+    const snapshot = ref.put(blob);
+    snapshot.on(
+      fire.storage().TaskEvent.STATE_CHANGED,
+      () => {
+        this.setState({ uploading: true });
+      },
+      (error) => {
+        this.setState({ uploading: false });
+        console.log(error);
+        blob.close();
+        return;
+      },
+      () => {
+        snapshot.snapshot.ref.getDownloadURL().then((url) => {
+          this.setState({ uploading: false });
+          console.log('download URL: ', url);
+          blob.close();
+          return url;
+        });
+      },
+    );
   };
 
   renderTodo = (todo, index) => {
@@ -83,12 +157,17 @@ export default class TodoModal extends React.Component {
       </TouchableOpacity>
     );
   };
+
   render() {
     const list = this.props.list;
     const taskCount = list.todos.length;
     const completedCount = list.todos.filter((todo) => todo.completed).length;
+    let { image } = this.state;
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding">
+      <KeyboardAvoidingView
+        style={{ flex: 1, overflow: 'hidden' }}
+        behavior="padding"
+      >
         <SafeAreaView style={styles.container}>
           <TouchableOpacity
             style={{ position: 'absolute', top: 25, right: 25, zIndex: 10 }}
@@ -115,6 +194,46 @@ export default class TodoModal extends React.Component {
               <Text style={styles.insDate}>{list.dateTime}</Text>
             </View>
           </View>
+          <View
+            style={[
+              {
+                // flex: 1,
+                left: 0,
+                // backgroundColor: Colors.black,
+                marginTop: 15,
+                paddingHorizontal: 32,
+                flexDirection: 'row',
+                alignItems: 'center',
+                justifyContent: 'center',
+              },
+            ]}
+          >
+            <Image
+              source={{ uri: this.state.image }}
+              style={{ width: 100, height: 100 }}
+            />
+            {!this.uploading ? (
+              <TouchableOpacity
+                style={[
+                  styles.addTodo,
+                  { backgroundColor: list.color, marginHorizontal: 15 },
+                ]}
+                onPress={() => {
+                  this.uploadImage;
+                }}
+              >
+                <Text style={{ color: '#fff' }}>Upload Image</Text>
+              </TouchableOpacity>
+            ) : (
+              <ActivityIndicator size="large" color="#000" />
+            )}
+            <TouchableOpacity
+              style={[styles.addTodo, { backgroundColor: list.color }]}
+              onPress={this.pickImage}
+            >
+              <Text style={{ color: '#fff' }}>Choose Image</Text>
+            </TouchableOpacity>
+          </View>
           <View style={[styles.section, { flex: 3 }]}>
             <FlatList
               data={list.todos}
@@ -127,6 +246,7 @@ export default class TodoModal extends React.Component {
               showsVerticalScrollIndicator={false}
             />
           </View>
+
           <View style={[styles.section, styles.footer]}>
             <TextInput
               style={[styles.input, { borderColor: list.color }]}
@@ -187,6 +307,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     flexDirection: 'row',
     alignItems: 'center',
+    // justifyContent: 'center',
     // backgroundColor: Colors.bee_header,
   },
   input: {

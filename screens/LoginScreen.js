@@ -11,6 +11,7 @@ import {
 import { StatusBar } from 'expo-status-bar';
 import { KeyboardAvoidingView } from 'react-native';
 import fire from '../firebase/fire';
+import axios from 'axios';
 
 const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('');
@@ -36,7 +37,7 @@ const LoginScreen = ({ navigation }) => {
   //   }
   // };
   const showAlert = () => {
-    Alert.alert('You need to...');
+    Alert.alert('User Logged Out');
   };
   useEffect(() => {
     const signOutUser = async () => {
@@ -47,13 +48,18 @@ const LoginScreen = ({ navigation }) => {
         console.log(e);
       }
     };
+    // const unsubscribe = navigation.addListener('focus', () => {
+    //   Alert.alert('Refreshed');
+    // });
     signOutUser();
+    // showAlert();
+    // return unsubscribe;
   }, []);
   return (
     <KeyboardAvoidingView style={styles.container}>
       <StatusBar style="light" />
       <Image
-        source={require('../assets/logo_alt_2.png')}
+        source={require('../assets/Untitled.png')}
         style={{
           width: 150,
           height: 150,

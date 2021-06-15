@@ -21,8 +21,13 @@ const SignupScreen = ({ navigation }) => {
     try {
       const response = await fire
         .auth()
-        .createUserWithEmailAndPassword(email, password);
-      navigation.navigate('LoginScreen');
+        .createUserWithEmailAndPassword(email, password)
+        .then((userCredential) => {
+          userCredential.user.sendEmailVerification();
+          fire.auth().signOut();
+          alert('Verification Email Sent');
+        });
+      // navigation.navigate('LoginScreen');
     } catch (err) {
       setError(err.message);
     }

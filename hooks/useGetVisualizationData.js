@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 
 const data_temp = {
-  labels: ['60', '50', '40', '30', '20', '10', '0'],
+  labels: ['0', '10', '20', '30', '40', '50', '60'],
   datasets: [
     {
       data: [],
@@ -13,7 +13,8 @@ const data_temp = {
   legend: ['Humidity'], // optional
 };
 const data_hum = {
-  labels: ['60', '50', '40', '30', '20', '10', '0'],
+  labels: ['0', '10', '20', '30', '40', '50', '60'],
+
   datasets: [
     {
       data: [],

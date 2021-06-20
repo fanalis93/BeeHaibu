@@ -26,37 +26,6 @@ const globalScreenOptions = {
   fontWeight: '700',
 };
 
-// const App = () => {
-//   return (
-//     <NavigationContainer>
-//       <Tab.Navigator
-//         initialRouteName="Dashboard"
-//         activeColor="#fff"
-//         labelStyle={{ fontSize: 15 }}
-//         style={{ backgroundColor: 'tomato' }}
-//       >
-//         <Tab.Screen name="Dashboard" component={Dashboard} />
-//         <Tab.Screen
-//           options={{ headerShown: false }}
-//           name="InspectionList"
-//           component={InspectionList}
-//         />
-//         <Tab.Screen
-//           options={{ title: 'Beehaibu Login' }}
-//           name="LoginScreen"
-//           component={LoginScreen}
-//         />
-
-//         <Tab.Screen
-//           options={{ title: 'Beehaibu Signup' }}
-//           name="SignupScreen"
-//           component={SignupScreen}
-//         />
-//       </Tab.Navigator>
-//     </NavigationContainer>
-//   );
-// };
-
 const Drawer = createDrawerNavigator();
 const App = ({ navigation }) => {
   const signOutUser = async () => {

@@ -1,71 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, Switch } from 'react-native';
 import Colors from '../components/Colors';
-
-// const AlertScreen = () => {
-//   const [isEnabled, setIsEnabled] = useState(false);
-//   const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-//   // const toggleSwitch = (value) => {
-//   //   setIsEnabled(value);
-//   // };
-//   return (
-//     <View style={styles.container}>
-//       <Text style={styles.title}>This is AlertScreen</Text>
-//       <View style={styles.alertList}>
-//         <Text style={[styles.listText, { marginRight: 50 }]}>
-//           Honey Harvest
-//         </Text>
-//         <Switch
-//           trackColor={{ false: '#767577', true: '#81b0ff' }}
-//           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-//           ios_backgroundColor="#3e3e3e"
-//           onValueChange={toggleSwitch}
-//           value={isEnabled}
-//           style={styles.switch}
-//         />
-//       </View>
-//       <View style={styles.alertList}>
-//         <Text style={[styles.listText, { marginRight: 15 }]}>
-//           Temperature Alert
-//         </Text>
-//         <Switch
-//           trackColor={{ false: '#767577', true: '#81b0ff' }}
-//           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-//           ios_backgroundColor="#3e3e3e"
-//           onValueChange={toggleSwitch}
-//           value={isEnabled}
-//           style={styles.switch}
-//         />
-//       </View>
-//       <View style={styles.alertList}>
-//         <Text style={[styles.listText, { marginRight: 55 }]}>
-//           Humidity Alert
-//         </Text>
-//         <Switch
-//           trackColor={{ false: '#767577', true: '#81b0ff' }}
-//           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-//           ios_backgroundColor="#3e3e3e"
-//           onValueChange={toggleSwitch}
-//           value={isEnabled}
-//           style={styles.switch}
-//         />
-//       </View>
-//       <View style={styles.alertList}>
-//         <Text style={[styles.listText, { marginRight: 77 }]}>Weight Alert</Text>
-//         <Switch
-//           trackColor={{ false: '#767577', true: '#81b0ff' }}
-//           thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
-//           ios_backgroundColor="#3e3e3e"
-//           onValueChange={toggleSwitch}
-//           value={isEnabled}
-//           style={styles.switch}
-//         />
-//       </View>
-//     </View>
-//   );
-// };
-
-// export default AlertScreen;
+import { AntDesign, Ionicons } from '@expo/vector-icons';
 export default class AlertScreen extends React.Component {
   constructor(props) {
     super(props);
@@ -130,6 +66,21 @@ export default class AlertScreen extends React.Component {
             value={this.state.activeSwitch === 3}
             style={styles.switch}
           />
+        </View>
+        <View
+          style={{
+            justifyContent: 'center',
+            marginTop: 32,
+            // backgroundColor: Colors.bee_header,
+            borderRadius: 15,
+            borderColor: Colors.red,
+            borderWidth: 2,
+            padding: 10,
+            flexDirection: 'row',
+          }}
+        >
+          <Ionicons name="help-circle-outline" size={16} color={Colors.red} />
+          <Text>Screen Function Coming Soon!</Text>
         </View>
       </View>
     );

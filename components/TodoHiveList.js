@@ -41,6 +41,9 @@ export default class TodoHiveList extends React.Component {
           <Text style={styles.listTitle} numberofLines={2}>
             Location: Mahallah {hive.hiveLocation}
           </Text>
+          <Text style={styles.listTitle} numberofLines={2}>
+            Colony Install Date: {hive.colonyStartDate}
+          </Text>
         </TouchableOpacity>
       </View>
     );

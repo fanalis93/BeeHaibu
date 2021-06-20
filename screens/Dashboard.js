@@ -36,6 +36,7 @@ import fire from '../firebase/fire';
 
 //----------------------------------------------------------------------------------------------------!!!!!!!!!!!!
 const Dashboard = ({ navigation }) => {
+  // const { hiveName } = route.params('hiveName');
   const [isRefreshing, setIsRefreshing] = useState(false);
   const handleRefresh = useCallback(async () => {
     setIsRefreshing(true);
@@ -78,6 +79,7 @@ const Dashboard = ({ navigation }) => {
           <Vizualization />
           <View style={{ marginLeft: 12 }}>
             <Text style={[styles.bodyText]}>Hive ID: Hive_01</Text>
+            {/* <Text style={[styles.bodyText]}>Hive ID: {hiveName}</Text> */}
             <Text style={[styles.bodyText]}>Bee Species: Meliponines</Text>
             <Text style={[styles.bodyText]}>
               Hive Location: Mahallah Aminah

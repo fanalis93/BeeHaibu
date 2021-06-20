@@ -35,7 +35,8 @@ export default function useGetVisualizationData() {
     if (isMounted.current) {
       (async function () {
         const { data } = await axios.get(
-          'https://sheetdb.io/api/v1/2htkwqlyek6fm',
+          // 'https://sheetdb.io/api/v1/2htkwqlyek6fm',
+          'https://sheetdb.io/api/v1/zqoqtlj4deio9',
         );
         const hum = data.map((d) => parseFloat(d?.Humidity));
         setDataTemp({

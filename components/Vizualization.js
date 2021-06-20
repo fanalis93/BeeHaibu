@@ -243,8 +243,8 @@ export default function Vizualization() {
         data={data_temp}
         width={Dimensions.get('window').width} // from react-native
         height={220}
-        yAxisLabel="T"
-        yAxisSuffix="C"
+        yAxisLabel=""
+        yAxisSuffix="%"
         yAxisInterval={1} // optional, defaults to 1
         chartConfig={chartConfig1}
         bezier

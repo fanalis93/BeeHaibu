@@ -22,6 +22,7 @@ import Colors from './Colors';
 import { colorsDark } from 'react-native-elements/dist/config';
 import { Swipeable } from 'react-native-gesture-handler';
 import fire from '../firebase/fire';
+// import {firebaseConfig} from '../firebase/fire';
 // import Swipeable from 'react-native-gesture-handler/Swipeable';
 import AddImage from './AddImage';
 import Constants from 'expo-constants';

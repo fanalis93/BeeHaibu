@@ -73,7 +73,7 @@ const App = ({ navigation }) => {
   return (
     <NavigationContainer>
       {/* initialRouteName = Home/Login/Signup */}
-      <Drawer.Navigator initialRouteName="Dashboard">
+      <Drawer.Navigator initialRouteName="Logout">
         {/* <Drawer.Screen name="Loading" component={LoadingScreen} /> */}
         <Drawer.Screen name="Dashboard" component={MainTabScreen} />
         {/* <Drawer.Screen name="Login" component={UserTabScreen} /> */}

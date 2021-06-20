@@ -84,8 +84,8 @@ const Dashboard = ({ navigation }) => {
             <Text style={[styles.bodyText]}>
               Hive Location: Mahallah Aminah
             </Text>
-            <Text style={[styles.bodyText]}>Current Temperature: 32.60 C</Text>
-            <Text style={[styles.bodyText]}>Current Humidity: 57.20</Text>
+            <Text style={[styles.bodyText]}>Current Temperature: 30.70 C</Text>
+            <Text style={[styles.bodyText]}>Current Humidity: 71.20%</Text>
             <Text style={[styles.bodyText]}>Supplier: Melipoly</Text>
             {/* <TouchableOpacity onPress={() => navigation.navigate('HiveList')}>
               <Text>HIves</Text>

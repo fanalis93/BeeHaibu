@@ -1,4 +1,6 @@
 # BeeHaibu - A Smart Stringless Beehive Monitroing System
 
-****Resources****
+**Resources on React Native**
+* React Native Official Documentation - https://reactnative.dev/docs/getting-started
+* React Native Basic Course by [Frontend Masters](https://frontendmasters.com/) - https://frontendmasters.com/courses/react-native-v2/
 

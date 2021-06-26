@@ -158,8 +158,8 @@ const chartConfig1 = {
     borderRadius: 16,
   },
   propsForDots: {
-    r: '6',
-    strokeWidth: '2',
+    r: '3.5',
+    strokeWidth: '1',
     stroke: '#ffa726',
   },
 };
@@ -237,7 +237,10 @@ export default function Vizualization() {
         }}
       />
       <View style={styles.dataName}>
-        <Text style={styles.dataText}>Humidity Data</Text>
+        <Text style={styles.dataText}>
+          Humidity Data
+          {/* Humidity Data {data_hum[data_hum.length - 1]} */}
+        </Text>
       </View>
       <LineChart
         data={data_temp}

@@ -1,5 +1,7 @@
 # BeeHaibu - A Smart Stringless Beehive Monitroing System
 
+### A React Native application to keep track of the conditions of beehives and inspections.
+
 **Resources on React Native**
 * React Native Official Documentation - https://reactnative.dev/docs/getting-started
 * React Native Basic Course by [Frontend Masters](https://frontendmasters.com/) - https://frontendmasters.com/courses/react-native-v2/
